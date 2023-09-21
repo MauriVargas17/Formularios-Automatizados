@@ -1,0 +1,15 @@
+@import "../scss/variables";
+
+.dashboard {
+  background-color: $edv_gray; /* Background color for the dashboard */
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.logo {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%; /* Rounded borders for the logo */
+  /* Add additional styling for the logo as needed */
+}

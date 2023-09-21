@@ -1,0 +1,54 @@
+@import "../scss/variables";
+
+.card {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 16px;
+  max-width: 300px; /* Adjust the maximum width as needed */
+}
+
+.card h2 {
+  color: $edv_blue;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 16px;
+  margin: 4px 0;
+  color: $edv_blue;
+}
+
+.card_button {
+  margin: 2%;
+  background-color: $edv_blue;
+}
+
+.card_button:hover {
+  background-color: $edv_gray; /* Change color on hover */
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $edv_blue; /* Red background for the X button */
+  color: #fff; /* White text color */
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  background-color: $red;
+}

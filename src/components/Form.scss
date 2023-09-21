@@ -1,0 +1,112 @@
+@import "../scss/variables";
+
+.form-container {
+  position: relative;
+  padding: 40px; /* Increase padding for more vertical space */
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .edv {
+    color: $edv_blue;
+  }
+
+  .edv_button {
+    background-color: $edv_green;
+  }
+
+  .add_button {
+    padding-top: 0%;
+    color: $edv_blue;
+  }
+
+  .MuiTextField-root,
+  .MuiFormControlLabel-root,
+  .MuiButton-root,
+  .MuiChip-root {
+    margin-bottom: 20px; /* Increase margin between form elements */
+  }
+
+  .MuiTextField-root {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    max-width: 90%;
+  }
+
+  .MuiChip-root {
+    background-color: $edv_blue;
+    color: white;
+    margin-right: 5px;
+  }
+
+  .MuiCheckbox-root {
+    color: $edv_blue;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 10px; /* Adjust the right position as needed */
+    background-color: $edv_blue;
+    color: #fff;
+    border: none;
+    border-radius: 20%; /* Make it round */
+    width: 4%;
+    height: 4%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px; /* Adjust the font size as needed */
+  }
+
+  .close-button:hover {
+    background-color: #ff3333; /* Change color on hover */
+  }
+}
+.text-color {
+  color: $edv_blue;
+}
+
+.input-container {
+  border: 1px solid #ccc;
+  margin-bottom: 4%;
+
+  background-color: #ffff; /* Customize the background color */
+  padding: 2%; /* Add padding for spacing */
+  border-radius: 4px; /* Add rounded corners if desired */
+}
+
+.input-title {
+  font-weight: bold;
+  margin-top: 1%;
+  margin-bottom: 3%;
+  color: #333754; /* Match the color of text fields */
+}
+
+/* CSS for the date and time input boxes */
+.date-input,
+.time-input {
+  border: 1px solid #ccc;
+  padding: 1%;
+  background-color: #fff;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 40px;
+  color: #333; /* Match the color of text fields */
+}
+
+/* Additional styling for the slash (/) or colon (:) separator */
+.separator {
+  margin: 0 5px;
+  font-size: 16px;
+  color: #333;
+}
