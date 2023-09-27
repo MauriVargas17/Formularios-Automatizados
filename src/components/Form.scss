@@ -17,8 +17,52 @@
     color: $edv_blue;
   }
 
+  .external {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    left: 10px; /* Adjust the right position as needed */
+    background-color: $edv_gray;
+    color: #fff;
+    border: none;
+    border-radius: 10%; /* Make it round */
+    width: 20%;
+    height: fit-content;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+  }
+  .external-true {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    left: 10px; /* Adjust the right position as needed */
+    background-color: #ffa500;
+    color: #fff;
+    border: none;
+    border-radius: 10%; /* Make it round */
+    width: 20%;
+    height: fit-content;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+  }
+
+  .external:hover {
+    background-color: $edv_gray;
+  }
+  .external-true:hover {
+    background-color: #ffa500;
+  }
+
   .edv_button {
     background-color: $edv_green;
+  }
+
+  .edv_button:hover {
+    background-color: $edv_blue;
   }
 
   .add_button {
@@ -60,7 +104,7 @@
     border: none;
     border-radius: 20%; /* Make it round */
     width: 4%;
-    height: 4%;
+    height: fit-content;
     cursor: pointer;
     display: flex;
     justify-content: center;

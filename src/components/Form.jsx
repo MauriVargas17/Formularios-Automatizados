@@ -10,18 +10,32 @@ import {
 } from "@mui/material";
 import "./Form.scss";
 import Grid from "@mui/material/Grid";
+import { base_cargos } from "../constants/base_cargos";
+
+// const initialFormData = {
+//   codigoNumerico: "",
+//   nombreGerencia: "",
+//   prefijoSolicitante: "",
+//   nombreSolicitante: "",
+//   hour: "",
+//   minute: "",
+//   day: "",
+//   month: "",
+//   year: "",
+//   integrantes: [],
+//   esMensajero: false,
+// };
 
 const initialFormData = {
   codigoNumerico: "",
   nombreGerencia: "",
   prefijoSolicitante: "",
   nombreSolicitante: "",
-  hour: "",
-  minute: "",
-  day: "",
-  month: "",
-  year: "",
+  fechas: [],
   integrantes: [],
+  carnets: [],
+  empresas: [],
+  cargos: [],
   esMensajero: false,
 };
 
@@ -39,6 +53,9 @@ const gerencias = [
 function Formulario({ onSubmit, onCancel }) {
   const [formData, setFormData] = useState(initialFormData);
   const [newIntegrante, setNewIntegrante] = useState("");
+  const [isExternalIntegrante, setIsExternalIntegrante] = useState(false);
+  const [carnet, setCarnet] = useState("");
+  const [empresa, setEmpresa] = useState("");
 
   const handleDateChange = (event) => {
     const { name, value } = event.target;
@@ -61,11 +78,7 @@ function Formulario({ onSubmit, onCancel }) {
     const { name, value } = event.target;
 
     // Ensure that the input is numeric and within the appropriate range
-    if (
-      /^\d*$/.test(value) &&
-      value >= 0 &&
-      new Date().getFullYear() >= value
-    ) {
+    if (new Date().getFullYear() > value && /^\d*$/.test(value) && value >= 0) {
       setFormData({ ...formData, [name]: value });
     }
   };
@@ -86,16 +99,44 @@ function Formulario({ onSubmit, onCancel }) {
     }
   };
 
+  const searchMatchInPositions = (name) => {
+    for (let key in base_cargos) {
+      let regex = new RegExp(key, "i");
+
+      if (regex.test(name)) {
+        return base_cargos[key];
+      }
+    }
+    return "";
+  };
+
   const addIntegrante = () => {
     if (newIntegrante.trim() !== "") {
       const updatedIntegrantes = [...formData.integrantes, newIntegrante];
+      const updatedCarnets = [...formData.carnets, carnet];
+      let empresaFinal = empresa;
+      if (empresa == "") {
+        empresaFinal = "EDV";
+      }
+      const updatedCargos = [
+        ...formData.cargos,
+        searchMatchInPositions(newIntegrante) || "",
+      ];
+      const updatedEmpresas = [...formData.empresas, empresaFinal];
       setFormData({
         ...formData,
         integrantes: updatedIntegrantes,
+        carnets: updatedCarnets,
+        empresas: updatedEmpresas,
+        cargos: updatedCargos,
         esMensajero:
-          updatedIntegrantes.length === 1 ? formData.esMensajero : false,
+          updatedIntegrantes.length === 1 && !isExternalIntegrante
+            ? formData.esMensajero
+            : false,
       });
-      setNewIntegrante(""); // Clear the input field by setting it to an empty string
+      setNewIntegrante("");
+      setCarnet("");
+      setEmpresa("");
     }
   };
   const handleEsMensajeroChange = (event) => {
@@ -134,6 +175,10 @@ function Formulario({ onSubmit, onCancel }) {
   const handleCancel = () => {
     setFormData({});
     onCancel();
+  };
+
+  const handleInternosChange = () => {
+    setIsExternalIntegrante(!isExternalIntegrante);
   };
 
   return (
@@ -262,15 +307,47 @@ function Formulario({ onSubmit, onCancel }) {
             />
           </div>
         </div>
+
         <TextField
           label="Integrantes (opcional)"
           name="integrantes"
           value={newIntegrante}
           onChange={(e) => setNewIntegrante(e.target.value)}
         />
+
+        <Button
+          className={`external${isExternalIntegrante ? "-true" : ""}`}
+          variant="contained"
+          color="primary"
+          onClick={handleInternosChange}
+        >
+          {isExternalIntegrante ? "Externos" : "Internos"}
+        </Button>
+
+        {isExternalIntegrante ? (
+          <div>
+            <TextField
+              label="Carnet de Identidad"
+              name="carnet"
+              value={carnet}
+              onChange={(e) => setCarnet(e.target.value)}
+            ></TextField>
+
+            <TextField
+              label="Empresa"
+              name="empresa"
+              value={empresa}
+              onChange={(e) => setEmpresa(e.target.value)}
+            ></TextField>
+          </div>
+        ) : (
+          <></>
+        )}
+
         <Button className="add_button" onClick={addIntegrante}>
           Agregar Integrante
         </Button>
+
         <div>
           {formData.integrantes.map((integrante, index) => (
             <Chip
@@ -281,7 +358,7 @@ function Formulario({ onSubmit, onCancel }) {
           ))}
         </div>
 
-        {formData.integrantes.length === 1 && (
+        {formData.integrantes.length === 0 && !isExternalIntegrante && (
           <FormControlLabel
             control={
               <Checkbox
